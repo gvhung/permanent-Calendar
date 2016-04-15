@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <!--针对移动端优化的站点-->
+    <!--viewport是网页默认的宽度和高度,width属性控制视口的宽度。可以像width=600这样设为确切的像素数，或者设为device-width这一特殊值来指代比例为100%时屏幕宽度的CSS像素数值。（相应有height及device-height属性，可能对包含基于视口高度调整大小及位置的元素的页面有用。）
+
+    initial-scale属性控制页面最初加载时的缩放等级。maximum-scale、minimum-scale及user-scalable属性控制允许用户以怎样的方式放大或缩小页面。
+    initial-scale – // 初始的缩放比例 （范围从 > 0 到 10）
+minimum-scale – // 允许用户缩放到的最小比例
+maximum-scale – // 允许用户缩放到的最大比例
+user-scalable – // 用户是否可以手动缩放 (no，yes)
+   -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--name 属性的 apple-mobile-web-app-capable 值（网站开启对 web app 程序的支持）-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--name 属性的 apple-mobile-web-app-status-bar-style 值（改变顶部状态条的颜色）-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--name 属性的 format-detection 值（忽略页面中的数字识别为电话号码）-->
+    <meta name="format-detection" content="telephone=no">
+    <title>万年历</title>
+    <link rel="stylesheet" href="css/myStyle.css" />
+    <!--使ie6 7 8兼容canvas css3-->
+    <!--[if IE]>  
+    <script src="js/html5.js" type="text/javascript"></script>  
+    <script type="text/javascript" src="js/excanvas.compiled.js"></script>  
+    <link rel="stylesheet" href="ie-css3.htc"/>
+    <![endif]-->
+</head>
+
+<body onload="javascript:init()">
+
+    <div id="wrap">
+        <canvas id="canvas" width="1600px" height="900px"></canvas>
+        <table cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td>
+                    <div id="calendar">
+                        <div id="top">&nbsp;&nbsp;
+                            <span></span> 公元&nbsp;
+                            <select>时间</select>&nbsp;年&nbsp;
+                            <select></select>&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;农历<span></span>年&nbsp;[&nbsp;<span></span>年&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" value="今天" title="点击后跳转回今天" />
+                        </div>
+                        <ul id="week">
+                            <li><b>日</b></li>
+                            <li>一</li>
+                            <li>二</li>
+                            <li>三</li>
+                            <li>四</li>
+                            <li>五</li>
+                            <li><b>六</b></li>
+                        </ul>
+                        <div id="day"></div>
+                        <div id="footer"></div>
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        /*只有这里才用到了jquery封装的方法*/
+        /*将Canvas元素的高度和宽度精度设置为浏览器窗口的宽度和高度*/
+        var canvas = $("#canvas");
+        var context = canvas.get(0).getContext("2d");
+        /*jquery里浏览器窗口大小调整时触发的resize方法*/
+        $(window).resize(resizeCanvas);
+
+        function resizeCanvas() {
+            canvas.attr("width", $(window).get(0).innerWidth); /*浏览器兼容性*/
+            canvas.attr("height", $(window).get(0).innerHeight);
+            context.fillRect(0, 0, canvas.width(), canvas.height());
+        };
+        resizeCanvas();
+    </script>
+    <script src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/stars.js"></script>
+    <script type="text/javascript" src="js/commonFunctions.js"></script>
+    <--
+</body>
+
+</html>
